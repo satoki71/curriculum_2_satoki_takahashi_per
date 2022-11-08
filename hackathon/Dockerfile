@@ -21,7 +21,7 @@ FROM gcr.io/distroless/base-debian10 as runner
 
 WORKDIR /
 
-COPY --from=build /go/bin/docker-cd /app/docker-hackathon
+COPY --from=build /go/bin/docker-hackathon /app/docker-hackathon
 
 EXPOSE 8000
 
