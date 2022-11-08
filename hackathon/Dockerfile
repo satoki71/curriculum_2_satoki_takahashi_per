@@ -5,9 +5,10 @@ FROM golang:1.19 as build
 WORKDIR /go/src
 
 COPY go.mod ./
+COPY go.sum ./
 RUN go mod download
 
-COPY ./main.go  ./
+COPY ./*.go  ./
 
 ARG CGO_ENABLED=0
 #ARG GOOS=linux
