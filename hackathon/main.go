@@ -55,10 +55,10 @@ func init() {
 }
 
 func affiliationHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Headers", "http://localhost:3000")
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-	w.Header().Set("Content-Type", "application/json")
+	//w.Header().Set("Access-Control-Allow-Headers", "http://localhost:3000")
+	//w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	//w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+	//w.Header().Set("Content-Type", "application/json")
 
 	switch r.Method {
 	case http.MethodPost:
@@ -74,10 +74,10 @@ func affiliationHandler(w http.ResponseWriter, r *http.Request) {
 // ② /userでリクエストされたらnameパラメーターと一致する名前を持つレコードをJSON形式で返す
 func handler(w http.ResponseWriter, r *http.Request) {
 
-	w.Header().Set("Access-Control-Allow-Headers", "http://localhost:3000")
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-	w.Header().Set("Content-Type", "application/json")
+	//w.Header().Set("Access-Control-Allow-Headers", "http://localhost:3000")
+	//w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	//w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+	//w.Header().Set("Content-Type", "application/json")
 
 	switch r.Method {
 	case http.MethodGet:
@@ -99,10 +99,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func handler2(w http.ResponseWriter, r *http.Request) {
 
-	w.Header().Set("Access-Control-Allow-Headers", "http://localhost:3000")
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-	w.Header().Set("Content-Type", "application/json")
+	//w.Header().Set("Access-Control-Allow-Headers", "http://localhost:3000")
+	//w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	//w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+	//w.Header().Set("Content-Type", "application/json")
 
 	switch r.Method {
 	case http.MethodGet:
@@ -116,10 +116,10 @@ func handler2(w http.ResponseWriter, r *http.Request) {
 }
 
 func handler3(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Headers", "http://localhost:3000")
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-	w.Header().Set("Content-Type", "application/json")
+	//w.Header().Set("Access-Control-Allow-Headers", "http://localhost:3000")
+	//w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	//w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+	//w.Header().Set("Content-Type", "application/json")
 
 	switch r.Method {
 	case http.MethodGet:

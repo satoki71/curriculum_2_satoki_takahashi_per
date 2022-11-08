@@ -3,10 +3,10 @@ package dao
 import (
 	"database/sql"
 	"github.com/oklog/ulid"
+	"hackathon/model"
 	"log"
 	"os"
 	"os/signal"
-	"pre-hakkason-db/model"
 	"syscall"
 )
 
