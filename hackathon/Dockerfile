@@ -29,4 +29,4 @@ EXPOSE 8000
 
 ENTRYPOINT ["/app/docker-hackathon"]
 
-#to run, "docker run --publish 8000:8000 docker-cd:multistage"
+#to run, "docker run --publish 8000:8000 docker-hackathon:multistage"
