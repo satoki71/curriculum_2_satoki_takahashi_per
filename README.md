@@ -1,0 +1,1 @@
+# curriculum_2_satoki_takahashi
