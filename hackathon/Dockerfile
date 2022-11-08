@@ -8,7 +8,12 @@ COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
 
-COPY ./*.go  ./
+COPY ./main.go  ./
+COPY ./controller/*.go  ./controller/
+COPY ./dao/*.go  ./dao/
+COPY ./usecase/*.go  ./usecase/
+COPY ./model/*.go  ./model/
+
 
 ARG CGO_ENABLED=0
 #ARG GOOS=linux
