@@ -7,8 +7,6 @@ import (
 	"log"
 )
 
-var db *sql.DB
-
 func UserSearch(name string) (rows *sql.Rows, statusCode int) {
 	rows, err := db.Query("SELECT * FROM user WHERE name = ?", name)
 	if err != nil {
