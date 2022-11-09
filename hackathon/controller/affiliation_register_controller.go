@@ -9,6 +9,7 @@ func AffiliationRegister(w http.ResponseWriter, r *http.Request) {
 	//entropy := rand.New(rand.NewSource(time.Now().UnixNano()))
 	//ms := ulid.Timestamp(time.Now())
 	//id := ulid.MustNew(ms, entropy)
+	//add id
 
 	affiliation := r.URL.Query().Get("name") // To be filled
 	statusCode := usecase.AffiliationRegister(affiliation)
