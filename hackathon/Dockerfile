@@ -28,7 +28,7 @@ WORKDIR /
 
 COPY --from=build /go/bin/docker-hackathon /app/docker-hackathon
 
-EXPOSE 8080
+EXPOSE 8000
 
 #USER nonroot:nonroot
 
