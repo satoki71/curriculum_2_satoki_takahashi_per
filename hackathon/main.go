@@ -202,7 +202,7 @@ func main() {
 	log.Println("Listening...")
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8000"
+		port = "8080"
 	}
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Fatal(err)
