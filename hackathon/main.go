@@ -6,7 +6,6 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"hackathon/controller"
-	"hackathon/dao"
 	"log"
 	"net/http"
 	"os"
@@ -194,7 +193,7 @@ func main() {
 	http.HandleFunc("/affiliation", affiliationHandler)
 
 	// ③ Ctrl+CでHTTPサーバー停止時にDBをクローズする
-	dao.CloseDBWithSysCall()
+	//dao.CloseDBWithSysCall()
 
 	// 8000番ポートでリクエストを待ち受ける
 	//log.Println("Listening...")
