@@ -199,12 +199,12 @@ func main() {
 	dao.CloseDBWithSysCall()
 
 	// 8000番ポートでリクエストを待ち受ける
-	log.Println("Listening...")
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	if err := http.ListenAndServe(":"+port, nil); err != nil {
+	//log.Println("Listening...")
+	//port := os.Getenv("PORT")
+	//if port == "" {
+	//	port = "8080"
+	//}
+	if err := http.ListenAndServe(":8000", nil); err != nil {
 		log.Fatal(err)
 	}
 }
