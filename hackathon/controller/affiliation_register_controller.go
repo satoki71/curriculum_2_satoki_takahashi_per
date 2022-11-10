@@ -1,17 +1,20 @@
 package controller
 
 import (
+	"github.com/oklog/ulid"
 	"hackathon/usecase"
+	"math/rand"
 	"net/http"
+	"time"
 )
 
 func AffiliationRegister(w http.ResponseWriter, r *http.Request) {
-	//entropy := rand.New(rand.NewSource(time.Now().UnixNano()))
-	//ms := ulid.Timestamp(time.Now())
-	//id := ulid.MustNew(ms, entropy)
+	entropy := rand.New(rand.NewSource(time.Now().UnixNano()))
+	ms := ulid.Timestamp(time.Now())
+	id := ulid.MustNew(ms, entropy)
 
 	affiliation := r.URL.Query().Get("name") // To be filled
-	statusCode := usecase.AffiliationRegister(affiliation)
+	statusCode := usecase.AffiliationRegister(id, affiliation)
 	if statusCode == 400 {
 		w.WriteHeader(http.StatusBadRequest)
 		return

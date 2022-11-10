@@ -1,8 +1,11 @@
 package dao
 
-import "log"
+import (
+	"github.com/oklog/ulid"
+	"log"
+)
 
-func AffiliationRegister(affiliation string) (statusCode int) {
+func AffiliationRegister(id ulid.ULID, affiliation string) (statusCode int) {
 	tx, err := db.Begin()
 	if err != nil {
 		log.Printf("fail: db.Begin, %v\n", err)
@@ -10,7 +13,17 @@ func AffiliationRegister(affiliation string) (statusCode int) {
 		return statusCode
 	}
 
-	_, err = tx.Exec("INSERT INTO affiliation (name) VALUES (?)", affiliation)
+	cmd := "INSERT INTO affiliation (id, name) VALUES (?, ?)"
+	ins, err := tx.Prepare(cmd)
+	if err != nil {
+		log.Printf("fail: db.Prepare, %v\n", err)
+		statusCode = 500
+		return statusCode
+	}
+
+	defer ins.Close()
+
+	_, err = ins.Exec(id.String(), affiliation)
 	if err != nil {
 		log.Printf("fail: db.Exec, %v\n", err)
 		statusCode = 500
