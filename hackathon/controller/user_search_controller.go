@@ -52,10 +52,10 @@ func AllUserSearch(w http.ResponseWriter, r *http.Request) {
 }
 
 func MemberUserSearch(w http.ResponseWriter, r *http.Request) {
-	affiliation := r.URL.Query().Get("affiliation") // To be filled
+	name := r.URL.Query().Get("name") // To be filled
 
 	//usecase関数が必要(userSearch参照)
-	memberUsers, statusCode := usecase.MemberUserSearch(affiliation)
+	memberUsers, statusCode := usecase.MemberUserSearch(name)
 	if statusCode == 400 {
 		w.WriteHeader(http.StatusBadRequest)
 		return

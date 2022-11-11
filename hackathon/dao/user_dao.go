@@ -27,8 +27,8 @@ func AllUserSearch() (allRows *sql.Rows, statusCode int) {
 	return allRows, statusCode
 }
 
-func MemberUserSearch(affiliation string) (memberRows *sql.Rows, statusCode int) {
-	memberRows, err := db.Query("SELECT * FROM user WHERE affiliationId=(SELICT id FROM affiliation WHERE name = ?)", affiliation)
+func MemberUserSearch(name string) (memberRows *sql.Rows, statusCode int) {
+	memberRows, err := db.Query("SELECT * FROM user WHERE affiliationId = (SELICT id FROM affiliation WHERE name = ?)", name)
 	if err != nil {
 		log.Printf("fail: db.Query, %v\n", err)
 		statusCode = 500

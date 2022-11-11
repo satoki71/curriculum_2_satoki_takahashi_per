@@ -62,15 +62,21 @@ func AllUserSearch() (allUsers []model.AllUserResForHTTPGet, statusCode int) {
 	return allUsers, statusCode
 }
 
-func MemberUserSearch(affiliation string) (memberUsers []model.AllUserResForHTTPGet, statusCode int) {
-	memberRows, statusCode := dao.MemberUserSearch(affiliation)
+func MemberUserSearch(name string) (memberUsers []model.MemberUserResForHTTPGet, statusCode int) {
+	if name == "" {
+		log.Println("fail: name is empty")
+		statusCode = 400
+		return memberUsers, statusCode
+	}
+
+	memberRows, statusCode := dao.MemberUserSearch(name)
 	if statusCode != 0 {
 		return memberUsers, statusCode
 	}
 
-	memberUsers = make([]model.AllUserResForHTTPGet, 0)
+	memberUsers = make([]model.MemberUserResForHTTPGet, 0)
 	for memberRows.Next() {
-		var u model.AllUserResForHTTPGet
+		var u model.MemberUserResForHTTPGet
 		if err := memberRows.Scan(&u.Id, &u.Name, &u.AffiliationId, &u.Points); err != nil {
 			log.Printf("fail: rows.Scan, %v\n", err)
 
