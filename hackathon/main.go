@@ -59,6 +59,9 @@ func affiliationHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	switch r.Method {
+	case http.MethodGet:
+		controller.AffiliationSearch(w, r)
+
 	case http.MethodPost:
 		controller.AffiliationRegister(w, r)
 

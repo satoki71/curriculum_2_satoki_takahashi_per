@@ -1,9 +1,20 @@
 package dao
 
 import (
+	"database/sql"
 	"github.com/oklog/ulid"
 	"log"
 )
+
+func AffiliationSearch() (affiliationRows *sql.Rows, statusCode int) {
+	affiliationRows, err := db.Query("SELECT * FROM user")
+	if err != nil {
+		log.Printf("fail: db.Query, %v\n", err)
+		statusCode = 500
+		return affiliationRows, statusCode
+	}
+	return affiliationRows, statusCode
+}
 
 func AffiliationRegister(id ulid.ULID, affiliation string) (statusCode int) {
 	tx, err := db.Begin()
