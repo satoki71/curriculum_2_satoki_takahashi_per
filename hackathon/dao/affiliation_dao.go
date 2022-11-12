@@ -7,7 +7,7 @@ import (
 )
 
 func AffiliationSearch() (affiliationRows *sql.Rows, statusCode int) {
-	affiliationRows, err := db.Query("SELECT * FROM user")
+	affiliationRows, err := db.Query("SELECT * FROM affiliation")
 	if err != nil {
 		log.Printf("fail: db.Query, %v\n", err)
 		statusCode = 500
