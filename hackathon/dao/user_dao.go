@@ -24,12 +24,22 @@ func AllUserSearch() (allRows *sql.Rows, statusCode int) {
 		statusCode = 500
 		return allRows, statusCode
 	}
-	
+
 	return allRows, statusCode
 }
 
 func MemberUserSearch(name string) (memberRows *sql.Rows, statusCode int) {
 	memberRows, err := db.Query("SELECT * FROM user WHERE affiliationId = (SELECT id FROM affiliation WHERE name = ?)", name)
+	if err != nil {
+		log.Printf("fail: db.Query, %v\n", err)
+		statusCode = 500
+		return memberRows, statusCode
+	}
+	return memberRows, statusCode
+}
+
+func MateUserSearch(name string) (memberRows *sql.Rows, statusCode int) {
+	memberRows, err := db.Query("SELECT * FROM user WHERE affiliationId = (SELECT affiliationId FROM user WHERE name = ?)", name)
 	if err != nil {
 		log.Printf("fail: db.Query, %v\n", err)
 		statusCode = 500

@@ -134,6 +134,23 @@ func handler3(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func handler4(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Headers", "*") //"http://localhost:3000"
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+	w.Header().Set("Content-Type", "application/json")
+
+	switch r.Method {
+	case http.MethodGet:
+		controller.MateUserSearch(w, r)
+
+	default:
+		log.Printf("fail: HTTP Method is %s\n", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+}
+
 func takeHandler(w http.ResponseWriter, r *http.Request) {
 
 	//w.Header().Set("Access-Control-Allow-Headers", "http://localhost:3000")
@@ -193,6 +210,8 @@ func main() {
 	http.HandleFunc("/users", handler2)
 
 	http.HandleFunc("/members", handler3)
+
+	http.HandleFunc("/mate", handler4)
 
 	http.HandleFunc("/take", takeHandler)
 
