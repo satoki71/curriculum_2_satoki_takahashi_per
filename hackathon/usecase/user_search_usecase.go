@@ -22,7 +22,7 @@ func UserSearch(name string) (users []model.UserResForHTTPGet, statusCode int) {
 	users = make([]model.UserResForHTTPGet, 0)
 	for rows.Next() {
 		var u model.UserResForHTTPGet
-		if err := rows.Scan(&u.Id, &u.Name, &u.AffiliationId, &u.Points); err != nil {
+		if err := rows.Scan(&u.UserId, &u.Name, &u.AffiliationId, &u.Points); err != nil {
 			log.Printf("fail: rows.Scan, %v\n", err)
 			if err := rows.Close(); err != nil { // 500を返して終了するが、その前にrowsのClose処理が必要
 				log.Printf("fail: rows.Close(), %v\n", err)
@@ -46,7 +46,7 @@ func AllUserSearch() (allUsers []model.AllUserResForHTTPGet, statusCode int) {
 	allUsers = make([]model.AllUserResForHTTPGet, 0)
 	for allRows.Next() {
 		var u model.AllUserResForHTTPGet
-		if err := allRows.Scan(&u.Id, &u.Name, &u.AffiliationId, &u.Points); err != nil {
+		if err := allRows.Scan(&u.UserId, &u.Name, &u.AffiliationId, &u.Points); err != nil {
 			log.Printf("fail: rows.Scan, %v\n", err)
 
 			if err := allRows.Close(); err != nil { // 500を返して終了するが、その前にrowsのClose処理が必要
@@ -77,7 +77,7 @@ func MemberUserSearch(name string) (memberUsers []model.MemberUserResForHTTPGet,
 	memberUsers = make([]model.MemberUserResForHTTPGet, 0)
 	for memberRows.Next() {
 		var u model.MemberUserResForHTTPGet
-		if err := memberRows.Scan(&u.Id, &u.Name, &u.AffiliationId, &u.Points); err != nil {
+		if err := memberRows.Scan(&u.UserId, &u.Name, &u.AffiliationId, &u.Points); err != nil {
 			log.Printf("fail: rows.Scan, %v\n", err)
 
 			if err := memberRows.Close(); err != nil { // 500を返して終了するが、その前にrowsのClose処理が必要
