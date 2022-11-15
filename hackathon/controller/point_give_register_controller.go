@@ -36,7 +36,7 @@ func GiveRegister(w http.ResponseWriter, r *http.Request) {
 	}
 
 	bytesId, err := json.Marshal(model.UserIdReqPost{
-		Id: id.String(),
+		UserId: id.String(),
 	})
 	if err != nil {
 		log.Printf("fail: get id, %v\n", err)
