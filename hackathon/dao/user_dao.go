@@ -24,6 +24,7 @@ func AllUserSearch() (allRows *sql.Rows, statusCode int) {
 		statusCode = 500
 		return allRows, statusCode
 	}
+	log.Printf(allRows)
 	return allRows, statusCode
 }
 
