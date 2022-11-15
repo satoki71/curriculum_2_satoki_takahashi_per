@@ -1,19 +1,19 @@
 package model
 
 type UserResForHTTPGet struct {
-	Id            string `json:"id"`
+	UserId        string `json:"userId"`
 	Name          string `json:"name"`
 	AffiliationId string `json:"affiliationId"`
 	Points        int    `json:"points"`
 }
 type AllUserResForHTTPGet struct {
-	Id            string `json:"id"`
+	UserId        string `json:"userId"`
 	Name          string `json:"name"`
 	AffiliationId string `json:"affiliationId"`
 	Points        int    `json:"points"`
 }
 type MemberUserResForHTTPGet struct {
-	Id            string `json:"id"`
+	UserId        string `json:"userId"`
 	Name          string `json:"name"`
 	AffiliationId string `json:"affiliationId"`
 	Points        int    `json:"points"`
@@ -24,7 +24,7 @@ type UserReqHTTPPost struct {
 }
 
 type UserIdReqPost struct {
-	Id string `json:"id"`
+	UserId string `json:"userId"`
 }
 
 type UserReqHTTPUpdate struct {
