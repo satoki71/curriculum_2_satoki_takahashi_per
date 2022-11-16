@@ -89,9 +89,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	case http.MethodPost:
 		controller.UserRegister(w, r)
 
-	case http.MethodPut:
-		controller.UserUpdate(w, r)
-
 	default:
 		log.Printf("fail: HTTP Method is %s\n", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -109,6 +106,9 @@ func handler2(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
 		controller.AllUserSearch(w, r)
+
+	case http.MethodPut:
+		controller.UserUpdate(w, r)
 
 	default:
 		log.Printf("fail: HTTP Method is %s\n", r.Method)
