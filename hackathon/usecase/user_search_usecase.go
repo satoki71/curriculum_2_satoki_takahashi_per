@@ -93,14 +93,14 @@ func MemberUserSearch(name string) (memberUsers []model.MemberUserResForHTTPGet,
 	return memberUsers, statusCode
 }
 
-func MateUserSearch(name string) (memberUsers []model.MemberUserResForHTTPGet, statusCode int) {
-	if name == "" {
-		log.Println("fail: name is empty")
+func MateUserSearch(userId string) (memberUsers []model.MemberUserResForHTTPGet, statusCode int) {
+	if userId == "" {
+		log.Println("fail: userId is empty")
 		statusCode = 400
 		return memberUsers, statusCode
 	}
 
-	memberRows, statusCode := dao.MateUserSearch(name)
+	memberRows, statusCode := dao.MateUserSearch(userId)
 	if statusCode != 0 {
 		return memberUsers, statusCode
 	}

@@ -38,8 +38,8 @@ func MemberUserSearch(name string) (memberRows *sql.Rows, statusCode int) {
 	return memberRows, statusCode
 }
 
-func MateUserSearch(name string) (memberRows *sql.Rows, statusCode int) {
-	memberRows, err := db.Query("SELECT * FROM user WHERE affiliationId = (SELECT affiliationId FROM user WHERE name = ?)", name)
+func MateUserSearch(userId string) (memberRows *sql.Rows, statusCode int) {
+	memberRows, err := db.Query("SELECT * FROM user WHERE affiliationId = (SELECT affiliationId FROM user WHERE userId = ?)", userId)
 	if err != nil {
 		log.Printf("fail: db.Query, %v\n", err)
 		statusCode = 500
