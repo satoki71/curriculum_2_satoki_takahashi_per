@@ -9,10 +9,10 @@ type AllGiveResForHTTPGet struct {
 }
 
 type GiveReqHTTPPost struct {
-	FromName string
-	Points   int
-	Message  string
-	ToName   string
+	FromUserId string
+	Points     int
+	Message    string
+	ToUserId   string
 	//FromUserId string `json:"fromUserId"`
 	//Points     int    `json:"points"`
 	//Message    string `json:"message"`

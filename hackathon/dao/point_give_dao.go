@@ -26,7 +26,7 @@ func GiveRegister(id ulid.ULID, v model.GiveReqHTTPPost) (statusCode int) {
 		return statusCode
 	}
 
-	cmd := "INSERT INTO point (id, fromUserId, points, message, toUserId) VALUES (?, (SELECT userId FROM user WHERE name = ?), ?, ?, (SELECT userId FROM user WHERE name = ?))"
+	cmd := "INSERT INTO point (id, fromUserId, points, message, toUserId) VALUES (?, ?, ?, ?, ?)"
 	ins, err := tx.Prepare(cmd)
 	if err != nil {
 		log.Printf("fail: db.Prepare, %v\n", err)
@@ -38,7 +38,7 @@ func GiveRegister(id ulid.ULID, v model.GiveReqHTTPPost) (statusCode int) {
 
 	//subCmd1 := "SELECT userId FROM user WHERE name = ?, v.FromName"
 	//subCmd2 := "SELECT userId FROM user WHERE name = ?, v.ToName"
-	_, err = ins.Exec(id.String(), v.FromName, v.Points, v.Message, v.ToName)
+	_, err = ins.Exec(id.String(), v.FromUserId, v.Points, v.Message, v.ToUserId)
 	if err != nil {
 		log.Printf("fail: db.Exec, %v\n", err)
 		statusCode = 500
