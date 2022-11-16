@@ -105,7 +105,7 @@ func UserUpdate(userId string) (statusCode int) {
 
 	defer ins.Close()
 
-	_, err = ins.Exec(userId)
+	_, err = ins.Exec(userId, userId)
 	if err != nil {
 		log.Printf("fail: db.Exec, %v\n", err)
 		statusCode = 500
