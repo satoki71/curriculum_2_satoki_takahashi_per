@@ -207,6 +207,10 @@ func giveHandler(w http.ResponseWriter, r *http.Request) {
 	case http.MethodDelete:
 		controller.GiveDelete(w, r)
 
+	case http.MethodOptions:
+		w.WriteHeader(http.StatusOK)
+		//w.WriteHeader(http.StatusOK)
+
 	default:
 		log.Printf("fail: HTTP Method is %s\n", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
