@@ -17,7 +17,7 @@ func UserUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
+	//w.Header().Set("Content-Type", "application/json")
 	//w.Write()
 	w.WriteHeader(http.StatusOK)
 
