@@ -95,7 +95,7 @@ func UserUpdate(userId string) (statusCode int) {
 		return statusCode
 	}
 
-	cmd := "UPDATE user SET points=(SELECT SUM(points) FROM point WHERE toUserId=?) WHERE userId=?"
+	cmd := "UPDATE user SET user.points=(SELECT SUM(point.points) FROM point WHERE point.toUserId=?) WHERE user.userId=?"
 	ins, err := tx.Prepare(cmd)
 	if err != nil {
 		log.Printf("fail: db.Prepare, %v\n", err)

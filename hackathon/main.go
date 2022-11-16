@@ -89,6 +89,15 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	case http.MethodPost:
 		controller.UserRegister(w, r)
 
+	case http.MethodPut:
+		//w.WriteHeader(http.StatusOK)
+		controller.UserUpdate(w, r)
+		//w.WriteHeader(http.StatusOK)
+
+	case http.MethodOptions:
+		w.WriteHeader(http.StatusOK)
+		//w.WriteHeader(http.StatusOK)
+
 	default:
 		log.Printf("fail: HTTP Method is %s\n", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
@@ -103,7 +112,7 @@ func handler2(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
 	w.Header().Set("Content-Type", "application/json")
 
-	//if r.Method == "PUT" {
+	//if r.Method == "OPTIONS" {
 	//	w.WriteHeader(http.StatusOK)
 	//	return
 	//}
@@ -111,11 +120,6 @@ func handler2(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
 		controller.AllUserSearch(w, r)
-
-	case http.MethodPut:
-		w.WriteHeader(http.StatusOK)
-		controller.UserUpdate(w, r)
-		//w.WriteHeader(http.StatusOK)
 
 	default:
 		log.Printf("fail: HTTP Method is %s\n", r.Method)
