@@ -7,8 +7,8 @@ import (
 	"log"
 )
 
-func UserSearch(name string) (rows *sql.Rows, statusCode int) {
-	rows, err := db.Query("SELECT * FROM user WHERE name = ?", name)
+func UserSearch(userId string) (rows *sql.Rows, statusCode int) {
+	rows, err := db.Query("SELECT * FROM user WHERE userId = ?", userId)
 	if err != nil {
 		log.Printf("fail: db.Query, %v\n", err)
 		statusCode = 500
@@ -87,7 +87,7 @@ func UserRegister(id ulid.ULID, v model.UserReqHTTPPost) (statusCode int) {
 	return statusCode
 }
 
-func UserUpdate(name string) (statusCode int) {
+func UserUpdate(userId string) (statusCode int) {
 	tx, err := db.Begin()
 	if err != nil {
 		log.Printf("fail: db.Begin, %v\n", err)
@@ -95,7 +95,7 @@ func UserUpdate(name string) (statusCode int) {
 		return statusCode
 	}
 
-	cmd := "UPDATE user SET points=(SELECT SUM(points) FROM point WHERE toUserId=(SELECT userId FROM user WHERE name=?)) WHERE name=?"
+	cmd := "UPDATE user SET points=(SELECT SUM(points) FROM point WHERE toUserId=?) WHERE userId=?"
 	ins, err := tx.Prepare(cmd)
 	if err != nil {
 		log.Printf("fail: db.Prepare, %v\n", err)
@@ -105,7 +105,7 @@ func UserUpdate(name string) (statusCode int) {
 
 	defer ins.Close()
 
-	_, err = ins.Exec(name, name)
+	_, err = ins.Exec(userId, userId)
 	if err != nil {
 		log.Printf("fail: db.Exec, %v\n", err)
 		statusCode = 500

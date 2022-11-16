@@ -8,10 +8,10 @@ import (
 )
 
 func TakeSearch(w http.ResponseWriter, r *http.Request) {
-	name := r.URL.Query().Get("name") // To be filled
+	userId := r.URL.Query().Get("userId") // To be filled
 
 	//usecase関数が必要(userSearch参照)
-	allTakeUsers, statusCode := usecase.TakeSearch(name)
+	allTakeUsers, statusCode := usecase.TakeSearch(userId)
 	if statusCode == 400 {
 		w.WriteHeader(http.StatusBadRequest)
 		return

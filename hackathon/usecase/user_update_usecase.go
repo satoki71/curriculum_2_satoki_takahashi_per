@@ -5,14 +5,14 @@ import (
 	"log"
 )
 
-func UserUpdate(name string) (statusCode int) {
-	if name == "" {
-		log.Println("fail: name is empty")
+func UserUpdate(userId string) (statusCode int) {
+	if userId == "" {
+		log.Println("fail: userId is empty")
 		statusCode = 400
 		return statusCode
 	}
 
-	statusCode = dao.UserUpdate(name)
+	statusCode = dao.UserUpdate(userId)
 
 	return statusCode
 }

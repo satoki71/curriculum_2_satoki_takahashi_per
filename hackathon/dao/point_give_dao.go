@@ -7,8 +7,8 @@ import (
 	"log"
 )
 
-func GiveSearch(name string) (giveRows *sql.Rows, statusCode int) {
-	giveRows, err := db.Query("SELECT * FROM point WHERE fromUserId=(SELICT userId FROM user WHERE name = ?)", name)
+func GiveSearch(userId string) (giveRows *sql.Rows, statusCode int) {
+	giveRows, err := db.Query("SELECT * FROM point WHERE fromUserId=?", userId)
 	if err != nil {
 		log.Printf("fail: db.Query, %v\n", err)
 		statusCode = 500

@@ -8,9 +8,9 @@ import (
 )
 
 func UserSearch(w http.ResponseWriter, r *http.Request) {
-	name := r.URL.Query().Get("name") // To be filled
+	userId := r.URL.Query().Get("userId") // To be filled
 
-	users, statusCode := usecase.UserSearch(name)
+	users, statusCode := usecase.UserSearch(userId)
 	if statusCode == 400 {
 		w.WriteHeader(http.StatusBadRequest)
 		return

@@ -6,14 +6,14 @@ import (
 	"log"
 )
 
-func GiveSearch(name string) (allGiveUsers []model.AllGiveResForHTTPGet, statusCode int) {
-	if name == "" {
-		log.Println("fail: name is empty")
+func GiveSearch(userid string) (allGiveUsers []model.AllGiveResForHTTPGet, statusCode int) {
+	if userid == "" {
+		log.Println("fail: userid is empty")
 		statusCode = 400
 		return allGiveUsers, statusCode
 	}
 
-	giveRows, statusCode := dao.GiveSearch(name)
+	giveRows, statusCode := dao.GiveSearch(userid)
 	if statusCode != 0 {
 		return allGiveUsers, statusCode
 		//w.WriteHeader(http.StatusInternalServerError)

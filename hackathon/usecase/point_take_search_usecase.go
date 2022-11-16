@@ -6,14 +6,14 @@ import (
 	"log"
 )
 
-func TakeSearch(name string) (allTakeUsers []model.AllTakeResForHTTPGet, statusCode int) {
-	if name == "" {
-		log.Println("fail: name is empty")
+func TakeSearch(userid string) (allTakeUsers []model.AllTakeResForHTTPGet, statusCode int) {
+	if userid == "" {
+		log.Println("fail: userid is empty")
 		statusCode = 400
 		return allTakeUsers, statusCode
 	}
 
-	takeRows, statusCode := dao.TakeSearch(name)
+	takeRows, statusCode := dao.TakeSearch(userid)
 	if statusCode != 0 {
 		return allTakeUsers, statusCode
 		//w.WriteHeader(http.StatusInternalServerError)
