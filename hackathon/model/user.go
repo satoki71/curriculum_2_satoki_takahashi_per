@@ -27,6 +27,11 @@ type UserIdReqPost struct {
 	UserId string `json:"userId"`
 }
 
-type UserReqHTTPUpdate struct {
-	Name string
+//type UserReqHTTPUpdate struct {
+//	Name string
+//}
+
+type UserNameReqHTTPUpdate struct {
+	UserId string
+	Name   string
 }

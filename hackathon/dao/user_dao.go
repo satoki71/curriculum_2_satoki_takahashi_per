@@ -124,6 +124,43 @@ func UserUpdate(userId string) (statusCode int) {
 	return statusCode
 }
 
+func UserNameUpdate(v model.UserNameReqHTTPUpdate) (statusCode int) {
+	tx, err := db.Begin()
+	if err != nil {
+		log.Printf("fail: db.Begin, %v\n", err)
+		statusCode = 500
+		return statusCode
+	}
+
+	cmd := "UPDATE user SET name=? WHERE userId = ?"
+	ins, err := tx.Prepare(cmd)
+	if err != nil {
+		log.Printf("fail: db.Prepare, %v\n", err)
+		statusCode = 500
+		return statusCode
+	}
+
+	defer ins.Close()
+
+	_, err = ins.Exec(v.Name, v.UserId)
+	if err != nil {
+		log.Printf("fail: db.Exec, %v\n", err)
+		statusCode = 500
+		err1 := tx.Rollback()
+		if err1 != nil {
+			log.Printf("fail: tx.Rollback, %v\n", err1)
+			statusCode = 500
+		}
+		return statusCode
+	}
+	err1 := tx.Commit()
+	if err1 != nil {
+		log.Printf("fail: tx.Commit, %v\n", err1)
+		statusCode = 500
+	}
+	return statusCode
+}
+
 // ③ Ctrl+CでHTTPサーバー停止時にDBをクローズする
 
 //func CloseDBWithSysCall() {

@@ -138,6 +138,15 @@ func handler2(w http.ResponseWriter, r *http.Request) {
 	case http.MethodGet:
 		controller.AllUserSearch(w, r)
 
+	case http.MethodPut:
+		//w.WriteHeader(http.StatusOK)
+		controller.UserNameUpdate(w, r)
+		//w.WriteHeader(http.StatusOK)
+
+	case http.MethodOptions:
+		w.WriteHeader(http.StatusOK)
+		//w.WriteHeader(http.StatusOK)
+
 	default:
 		log.Printf("fail: HTTP Method is %s\n", r.Method)
 		w.WriteHeader(http.StatusBadRequest)
