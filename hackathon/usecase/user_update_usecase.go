@@ -13,7 +13,11 @@ func UserUpdate(userId string) (statusCode int) {
 		return statusCode
 	}
 
-	statusCode = dao.UserUpdate(userId)
+	err := dao.UserUpdate(userId)
+	if err != nil {
+		statusCode = 500
+		return statusCode
+	}
 
 	return statusCode
 }
@@ -25,7 +29,11 @@ func UserNameUpdate(v model.UserNameReqHTTPUpdate) (statusCode int) {
 		return statusCode
 	}
 
-	statusCode = dao.UserNameUpdate(v)
+	err := dao.UserNameUpdate(v)
+	if err != nil {
+		statusCode = 500
+		return statusCode
+	}
 
 	return statusCode
 }

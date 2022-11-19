@@ -7,7 +7,11 @@ import (
 
 func GiveDelete(v model.GiveReqHTTPDelete) (statusCode int) {
 
-	statusCode = dao.GiveDelete(v)
+	err := dao.GiveDelete(v)
+	if err != nil {
+		statusCode = 500
+		return statusCode
+	}
 
 	return statusCode
 }

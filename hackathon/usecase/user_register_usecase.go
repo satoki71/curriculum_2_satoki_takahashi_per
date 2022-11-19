@@ -21,7 +21,11 @@ func UserRegister(id ulid.ULID, v model.UserReqHTTPPost) (statusCode int) {
 	//	return statusCode
 	//}
 
-	statusCode = dao.UserRegister(id, v)
+	err := dao.UserRegister(id, v)
+	if err != nil {
+		statusCode = 500
+		return statusCode
+	}
 
 	return statusCode
 }

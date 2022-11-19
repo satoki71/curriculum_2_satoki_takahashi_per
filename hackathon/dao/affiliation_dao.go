@@ -6,40 +6,39 @@ import (
 	"log"
 )
 
-func AffiliationSearch() (affiliationRows *sql.Rows, statusCode int) {
-	affiliationRows, err := db.Query("SELECT * FROM affiliation")
+func AffiliationSearch() (affiliationRows *sql.Rows, err error) {
+	affiliationRows, err = db.Query("SELECT * FROM affiliation")
 	if err != nil {
 		log.Printf("fail: db.Query, %v\n", err)
-		statusCode = 500
-		return affiliationRows, statusCode
+
+		return affiliationRows, err
 	}
-	return affiliationRows, statusCode
+	return affiliationRows, err
 }
 
-func UAffiliationSearch(userId string) (rows *sql.Rows, statusCode int) {
-	rows, err := db.Query("SELECT * FROM affiliation WHERE id = (SELECT affiliationId FROM user WHERE userId = ?)", userId)
+func UAffiliationSearch(userId string) (rows *sql.Rows, err error) {
+	rows, err = db.Query("SELECT * FROM affiliation WHERE id = (SELECT affiliationId FROM user WHERE userId = ?)", userId)
 	if err != nil {
 		log.Printf("fail: db.Query, %v\n", err)
-		statusCode = 500
-		return rows, statusCode
+
+		return rows, err
 	}
-	return rows, statusCode
+	return rows, err
 }
 
-func AffiliationRegister(id ulid.ULID, affiliation string) (statusCode int) {
+func AffiliationRegister(id ulid.ULID, affiliation string) (err error) {
 	tx, err := db.Begin()
 	if err != nil {
 		log.Printf("fail: db.Begin, %v\n", err)
-		statusCode = 500
-		return statusCode
+		return err
 	}
 
 	cmd := "INSERT INTO affiliation (id, name) VALUES (?, ?)"
 	ins, err := tx.Prepare(cmd)
 	if err != nil {
 		log.Printf("fail: db.Prepare, %v\n", err)
-		statusCode = 500
-		return statusCode
+
+		return err
 	}
 
 	defer ins.Close()
@@ -47,18 +46,18 @@ func AffiliationRegister(id ulid.ULID, affiliation string) (statusCode int) {
 	_, err = ins.Exec(id.String(), affiliation)
 	if err != nil {
 		log.Printf("fail: db.Exec, %v\n", err)
-		statusCode = 500
-		err1 := tx.Rollback()
-		if err1 != nil {
-			log.Printf("fail: tx.Rollback, %v\n", err1)
-			statusCode = 500
+
+		err = tx.Rollback()
+		if err != nil {
+			log.Printf("fail: tx.Rollback, %v\n", err)
+
 		}
-		return statusCode
+		return err
 	}
-	err1 := tx.Commit()
-	if err1 != nil {
-		log.Printf("fail: tx.Commit, %v\n", err1)
-		statusCode = 500
+	err = tx.Commit()
+	if err != nil {
+		log.Printf("fail: tx.Commit, %v\n", err)
+
 	}
-	return statusCode
+	return err
 }

@@ -7,7 +7,11 @@ import (
 
 func GiveUpdate(v model.GiveReqHTTPPut) (statusCode int) {
 
-	statusCode = dao.GiveUpdate(v)
+	err := dao.GiveUpdate(v)
+	if err != nil {
+		statusCode = 500
+		return statusCode
+	}
 
 	return statusCode
 }

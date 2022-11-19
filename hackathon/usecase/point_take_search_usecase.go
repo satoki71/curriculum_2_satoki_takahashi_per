@@ -13,8 +13,9 @@ func TakeSearch(userid string) (allTakeUsers []model.AllTakeResForHTTPGet, statu
 		return allTakeUsers, statusCode
 	}
 
-	takeRows, statusCode := dao.TakeSearch(userid)
-	if statusCode != 0 {
+	takeRows, err := dao.TakeSearch(userid)
+	if err != nil {
+		statusCode = 500
 		return allTakeUsers, statusCode
 		//w.WriteHeader(http.StatusInternalServerError)
 		//return

@@ -13,8 +13,9 @@ func UserSearch(userId string) (users []model.UserResForHTTPGet, statusCode int)
 		return users, statusCode
 	}
 
-	rows, statusCode := dao.UserSearch(userId)
-	if statusCode != 0 {
+	rows, err := dao.UserSearch(userId)
+	if err != nil {
+		statusCode = 500
 		return users, statusCode
 		//w.WriteHeader(http.StatusInternalServerError)
 		//return
@@ -38,8 +39,9 @@ func UserSearch(userId string) (users []model.UserResForHTTPGet, statusCode int)
 }
 
 func AllUserSearch() (allUsers []model.AllUserResForHTTPGet, statusCode int) {
-	allRows, statusCode := dao.AllUserSearch()
-	if statusCode != 0 {
+	allRows, err := dao.AllUserSearch()
+	if err != nil {
+		statusCode = 500
 		return allUsers, statusCode
 	}
 
@@ -69,8 +71,9 @@ func MemberUserSearch(name string) (memberUsers []model.MemberUserResForHTTPGet,
 		return memberUsers, statusCode
 	}
 
-	memberRows, statusCode := dao.MemberUserSearch(name)
-	if statusCode != 0 {
+	memberRows, err := dao.MemberUserSearch(name)
+	if err != nil {
+		statusCode = 500
 		return memberUsers, statusCode
 	}
 
@@ -100,8 +103,9 @@ func MateUserSearch(userId string) (memberUsers []model.MemberUserResForHTTPGet,
 		return memberUsers, statusCode
 	}
 
-	memberRows, statusCode := dao.MateUserSearch(userId)
-	if statusCode != 0 {
+	memberRows, err := dao.MateUserSearch(userId)
+	if err != nil {
+		statusCode = 500
 		return memberUsers, statusCode
 	}
 

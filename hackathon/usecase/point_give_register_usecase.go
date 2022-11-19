@@ -8,7 +8,11 @@ import (
 
 func GiveRegister(id ulid.ULID, v model.GiveReqHTTPPost) (statusCode int) {
 
-	statusCode = dao.GiveRegister(id, v)
+	err := dao.GiveRegister(id, v)
+	if err != nil {
+		statusCode = 500
+		return statusCode
+	}
 	//if statusCode == 500 {
 	//	return statusCode
 	//}

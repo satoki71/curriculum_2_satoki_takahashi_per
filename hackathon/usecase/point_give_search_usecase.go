@@ -13,8 +13,9 @@ func GiveSearch(userid string) (allGiveUsers []model.AllGiveResForHTTPGet, statu
 		return allGiveUsers, statusCode
 	}
 
-	giveRows, statusCode := dao.GiveSearch(userid)
-	if statusCode != 0 {
+	giveRows, err := dao.GiveSearch(userid)
+	if err != nil {
+		statusCode = 500
 		return allGiveUsers, statusCode
 		//w.WriteHeader(http.StatusInternalServerError)
 		//return

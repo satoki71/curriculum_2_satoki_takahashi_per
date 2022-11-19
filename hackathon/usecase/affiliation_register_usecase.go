@@ -13,7 +13,10 @@ func AffiliationRegister(id ulid.ULID, affiliation string) (statusCode int) {
 		return statusCode
 	}
 
-	statusCode = dao.AffiliationRegister(id, affiliation)
+	err := dao.AffiliationRegister(id, affiliation)
+	if err != nil {
+		statusCode = 500
+	}
 
 	return statusCode
 }

@@ -7,31 +7,31 @@ import (
 	"log"
 )
 
-func GiveSearch(userId string) (giveRows *sql.Rows, statusCode int) {
-	giveRows, err := db.Query("SELECT * FROM point WHERE fromUserId=?", userId)
+func GiveSearch(userId string) (giveRows *sql.Rows, err error) {
+	giveRows, err = db.Query("SELECT * FROM point WHERE fromUserId=?", userId)
 	if err != nil {
 		log.Printf("fail: db.Query, %v\n", err)
-		statusCode = 500
-		return giveRows, statusCode
+		//statusCode = 500
+		return giveRows, err
 	}
-	return giveRows, statusCode
+	return giveRows, err
 }
 
-func GiveRegister(id ulid.ULID, v model.GiveReqHTTPPost) (statusCode int) {
+func GiveRegister(id ulid.ULID, v model.GiveReqHTTPPost) (err error) {
 
 	tx, err := db.Begin()
 	if err != nil {
 		log.Printf("fail: db.Begin, %v\n", err)
-		statusCode = 500
-		return statusCode
+		//statusCode = 500
+		return err
 	}
 
 	cmd := "INSERT INTO point (id, fromUserId, points, message, toUserId) VALUES (?, ?, ?, ?, ?)"
 	ins, err := tx.Prepare(cmd)
 	if err != nil {
 		log.Printf("fail: db.Prepare, %v\n", err)
-		statusCode = 500
-		return statusCode
+		//statusCode = 500
+		return err
 	}
 
 	defer ins.Close()
@@ -41,36 +41,35 @@ func GiveRegister(id ulid.ULID, v model.GiveReqHTTPPost) (statusCode int) {
 	_, err = ins.Exec(id.String(), v.FromUserId, v.Points, v.Message, v.ToUserId)
 	if err != nil {
 		log.Printf("fail: db.Exec, %v\n", err)
-		statusCode = 500
+		//statusCode = 500
 		err1 := tx.Rollback()
 		if err1 != nil {
 			log.Printf("fail: tx.Rollback, %v\n", err1)
-			statusCode = 500
+			//statusCode = 500
 		}
-		return statusCode
+		return err
 	}
 	err1 := tx.Commit()
 	if err1 != nil {
 		log.Printf("fail: tx.Commit, %v\n", err1)
-		statusCode = 500
+		//statusCode = 500
 	}
-	return statusCode
+	return err
 }
 
-func GiveUpdate(v model.GiveReqHTTPPut) (statusCode int) {
+func GiveUpdate(v model.GiveReqHTTPPut) (err error) {
 	tx, err := db.Begin()
 	if err != nil {
 		log.Printf("fail: db.Begin, %v\n", err)
-		statusCode = 500
-		return statusCode
+
+		return err
 	}
 
 	cmd := "UPDATE point SET points=?, message=? WHERE id=?"
 	ins, err := tx.Prepare(cmd)
 	if err != nil {
 		log.Printf("fail: db.Prepare, %v\n", err)
-		statusCode = 500
-		return statusCode
+		return err
 	}
 
 	defer ins.Close()
@@ -78,44 +77,44 @@ func GiveUpdate(v model.GiveReqHTTPPut) (statusCode int) {
 	_, err = ins.Exec(v.Points, v.Message, v.Id)
 	if err != nil {
 		log.Printf("fail: db.Exec, %v\n", err)
-		statusCode = 500
+
 		err1 := tx.Rollback()
 		if err1 != nil {
 			log.Printf("fail: tx.Rollback, %v\n", err1)
-			statusCode = 500
+
 		}
-		return statusCode
+		return err
 	}
 	err1 := tx.Commit()
 	if err1 != nil {
 		log.Printf("fail: tx.Commit, %v\n", err1)
-		statusCode = 500
+
 	}
-	return statusCode
+	return err
 }
 
-func GiveDelete(v model.GiveReqHTTPDelete) (statusCode int) {
+func GiveDelete(v model.GiveReqHTTPDelete) (err error) {
 	tx, err := db.Begin()
 	if err != nil {
 		log.Printf("fail: db.Begin, %v\n", err)
-		statusCode = 500
-		return statusCode
+
+		return err
 	}
 	_, err = tx.Exec("DELETE FROM point WHERE id=?", v.Id)
 	if err != nil {
 		log.Printf("fail: db.Exec, %v\n", err)
-		statusCode = 500
-		err1 := tx.Rollback()
-		if err1 != nil {
-			log.Printf("fail: tx.Rollback, %v\n", err1)
-			statusCode = 500
+
+		err = tx.Rollback()
+		if err != nil {
+			log.Printf("fail: tx.Rollback, %v\n", err)
+
 		}
-		return statusCode
+		return err
 	}
 	err1 := tx.Commit()
 	if err1 != nil {
 		log.Printf("fail: tx.Commit, %v\n", err1)
-		statusCode = 500
+
 	}
-	return statusCode
+	return err
 }
