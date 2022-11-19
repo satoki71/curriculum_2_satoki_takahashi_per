@@ -72,6 +72,23 @@ func affiliationHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func uAffiliationHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+	w.Header().Set("Content-Type", "application/json")
+
+	switch r.Method {
+	case http.MethodGet:
+		controller.UAffiliationSearch(w, r)
+
+	default:
+		log.Printf("fail: HTTP Method is %s\n", r.Method)
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+}
+
 // ② /userでリクエストされたらnameパラメーターと一致する名前を持つレコードをJSON形式で返す
 func handler(w http.ResponseWriter, r *http.Request) {
 	//w.Header().Set("Access-Control-Allow-Headers", "http://localhost:3000")
@@ -233,6 +250,8 @@ func main() {
 	http.HandleFunc("/give", giveHandler)
 
 	http.HandleFunc("/affiliation", affiliationHandler)
+
+	http.HandleFunc("/affiliationUser", uAffiliationHandler)
 
 	// ③ Ctrl+CでHTTPサーバー停止時にDBをクローズする
 	//dao.CloseDBWithSysCall()

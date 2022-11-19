@@ -16,6 +16,16 @@ func AffiliationSearch() (affiliationRows *sql.Rows, statusCode int) {
 	return affiliationRows, statusCode
 }
 
+func UAffiliationSearch(userId string) (rows *sql.Rows, statusCode int) {
+	rows, err := db.Query("SELECT * FROM affiliation WHERE id = (SELECT affiliationId FROM user WHERE userId = ?)", userId)
+	if err != nil {
+		log.Printf("fail: db.Query, %v\n", err)
+		statusCode = 500
+		return rows, statusCode
+	}
+	return rows, statusCode
+}
+
 func AffiliationRegister(id ulid.ULID, affiliation string) (statusCode int) {
 	tx, err := db.Begin()
 	if err != nil {
