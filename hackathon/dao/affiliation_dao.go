@@ -3,6 +3,7 @@ package dao
 import (
 	"database/sql"
 	"github.com/oklog/ulid"
+	"hackathon/model"
 	"log"
 )
 
@@ -26,7 +27,7 @@ func UAffiliationSearch(userId string) (rows *sql.Rows, err error) {
 	return rows, err
 }
 
-func AffiliationRegister(id ulid.ULID, affiliation string) (err error) {
+func AffiliationRegister(id ulid.ULID, v model.AffiliationReqForHTTPPost) (err error) {
 	tx, err := db.Begin()
 	if err != nil {
 		log.Printf("fail: db.Begin, %v\n", err)
@@ -43,7 +44,7 @@ func AffiliationRegister(id ulid.ULID, affiliation string) (err error) {
 
 	defer ins.Close()
 
-	_, err = ins.Exec(id.String(), affiliation)
+	_, err = ins.Exec(id.String(), v.Name)
 	if err != nil {
 		log.Printf("fail: db.Exec, %v\n", err)
 

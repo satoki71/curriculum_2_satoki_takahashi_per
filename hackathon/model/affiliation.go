@@ -5,3 +5,6 @@ type AffiliationResForHTTPGet struct {
 	Name   string `json:"name"`
 	Number int    `json:"number"`
 }
+type AffiliationReqForHTTPPost struct {
+	Name string
+}
