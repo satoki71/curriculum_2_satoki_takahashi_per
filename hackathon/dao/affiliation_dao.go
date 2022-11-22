@@ -34,7 +34,7 @@ func AffiliationRegister(id ulid.ULID, v model.AffiliationReqForHTTPPost) (err e
 		return err
 	}
 
-	cmd := "INSERT INTO affiliation (id, name) VALUES (?, ?)"
+	cmd := "INSERT INTO affiliation (id, name, number) VALUES (?, ?, ?)"
 	ins, err := tx.Prepare(cmd)
 	if err != nil {
 		log.Printf("fail: db.Prepare, %v\n", err)
@@ -44,7 +44,7 @@ func AffiliationRegister(id ulid.ULID, v model.AffiliationReqForHTTPPost) (err e
 
 	defer ins.Close()
 
-	_, err = ins.Exec(id.String(), v.Name)
+	_, err = ins.Exec(id.String(), v.Name, 0)
 	if err != nil {
 		log.Printf("fail: db.Exec, %v\n", err)
 
